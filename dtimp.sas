@@ -1,7 +1,7 @@
-libname dwy "D:\DavidY\LCBP";
+libname dwy "&path\DavidY\LCBP";
      data DWY.DT                                       ;
      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
-     infile 'D:\DavidY\LCBP\LCBP data for lsc 20141024.csv' delimiter = ',' MISSOVER DSD
+     infile "&path\DavidY\LCBP\lcbpdt20141229.csv" delimiter = ',' MISSOVER DSD
  lrecl=32767 firstobs=2 ;
         informat ID best32. ;
         informat result $8. ;
