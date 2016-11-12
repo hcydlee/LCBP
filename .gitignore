@@ -34,3 +34,10 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+.RData
+.Rhistory
+*.pper
+.Rproj.user/AD2AF42E/saved_source_markers
+LCBP.Rproj
+a163roc_comp.tiff
