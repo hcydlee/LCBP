@@ -6,7 +6,7 @@ y=-6.8272+0.0391*age+0.7917*smokec+1.3388*ch+0.1274*diasumm+1.0407*spiculation+0
 accpp=exp(y)/(1+exp(y))
 data<-cbind(data,accpp)
 rm(y,accpp)
-
+data<-data[which(diasumm>=30),]
 attach(data)
 
 roc1<-roc(cancer_b,estp,plot=FALSE,lty=1,auc=TRUE,legacy.axes=TRUE)
@@ -16,7 +16,7 @@ auc2<-paste('ACCP AUC =',round(as.numeric(roc2$auc),4))
 
 #2 prepare file and layout
 windowsFonts(Times=windowsFont('TT Times New Roman'))
-tiff(file="C:/sli126/GitHub/LCBP/b179roc_comp.tiff",res=300,width=1680,height=2400,compression="lzw")
+tiff(file="C:/sli126/GitHub/LCBP/b179roc_compge30mm.tiff",res=300,width=1680,height=2400,compression="lzw")
 #win.metafile(filename="C:/sli126/GitHub/LCBP/a163roc.png",width=6.7,height=9)
 par(family='Times')
 layout(matrix(c(1,2,3),byrow=TRUE,ncol=1),heights=c(1.2,5.6,1.2),respect=FALSE)
@@ -24,7 +24,7 @@ layout(matrix(c(1,2,3),byrow=TRUE,ncol=1),heights=c(1.2,5.6,1.2),respect=FALSE)
 #3 draw title part
 par(mar=c(0,0,0,0))
 plot(log(0),xlim=c(0,10),ylim=c(0,13),xaxt="n",type="n",axes=FALSE,xlab="",ylab="")
-text(x=5,y=3,labels="ROC Curves of LCBP and ACCP from Validation set 1",adj=c(0.5,0.5), cex=1.4,col=1,font=2)
+text(x=5,y=3,labels=paste("ROC Curves of LCBP and ACCP from Validation set 1(>=30mm),N=",nrow(data)),adj=c(0.5,0.5), cex=1.4,col=1,font=2)
 
 
 #4 draw ROC plot

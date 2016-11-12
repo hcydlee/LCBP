@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#1 get data and auc\nlibrary(pROC)\ndata<-read.csv(\"C:/sli126/GitHub/LCBP/a163.csv\",header=TRUE)\ndata<-data[which(30<=data$diasumm ),]\nattach(data)\n\nroc1<-roc(cancer_b1,estp,plot=FALSE,lty=1,auc=TRUE,legacy.axes=TRUE)\nroc2<-roc(cancer_b1,accpp,plot=FALSE,lty=1,auc=TRUE,legacy.axes=TRUE)\nauc1<-paste('LCBP AUC =',round(as.numeric(roc1$auc),4))\nauc2<-paste('ACCP AUC =',round(as.numeric(roc2$auc),4))\n\n#2 prepare file and layout\nwindowsFonts(Times=windowsFont('TT Times New Roman'))\ntiff(file=\"C:/sli126/GitHub/LCBP/a163roc_compge30mm.tiff\",res=300,width=1680,height=2400,compression=\"lzw\")\n#win.metafile(filename=\"C:/sli126/GitHub/LCBP/a163roc.png\",width=6.7,height=9)\npar(family='Times')\nlayout(matrix(c(1,2,3),byrow=TRUE,ncol=1),heights=c(1.2,5.6,1.2),respect=FALSE)\n\n#3 draw title part\npar(mar=c(0,0,0,0))\nplot(log(0),xlim=c(0,10),ylim=c(0,13),xaxt=\"n\",type=\"n\",axes=FALSE,xlab=\"\",ylab=\"\")\ntext(x=5,y=3,labels=paste(\"ROC Curves of LCBP and ACCP from Training Set 1(diasumm>=30),N=\",nrow(data)),adj=c(0.5,0.5), cex=1.4,col=1,font=2)\n\n\n#4 draw ROC plot\npar(mai=c(1.02,1.25,0.05,0.3),mgp=c(1.5,0.5,0))\nroc1<-roc(cancer_b1,estp,plot=TRUE,lty=1,auc=TRUE,legacy.axes=TRUE,asp=1,\n          grid=TRUE)\nroc2<-roc(cancer_b1,accpp,plot=TRUE,lty=2,auc=TRUE,legacy.axes=TRUE,add=TRUE)\ntest12<-as.numeric(roc.test(roc1,roc2,method=\"delong\",alternative = c(\"two.sided\", \"less\", \"greater\"))$p.value) \nfootn<-paste(\"ROC compare p value =\",round(test12,4))\n#5 Legends\nlgd<-c(auc1,auc2)\nlegend(0.5,0.03,lgd,ncol=1,bg='white',lwd=1,lty=c(1,2),xjust=0,cex=1.4,yjust=0,xpd=TRUE)\n\n#6 Footnote\npar(mar=c(0,0,0,0),mgp=c(1.5,0.5,0))\nplot(log(0),xlim=c(0,10),ylim=c(0,5),xaxt='n',type='n',axes=FALSE,xlab='',ylab='')\nsegments(0,4.9,10,4.9,lwd=1.5)\ntext(x=0,y=4.7,labels=footn,adj=c(0,1),font=1,col=1,cex=1.3)\n\n\ndev.off()\n\n\n",
+    "created" : 1478953612484.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2736222698",
+    "id" : "2D9B56D6",
+    "lastKnownWriteTime" : 1478953970,
+    "last_content_update" : 1478953970118,
+    "path" : "C:/sli126/GitHub/LCBP/a163roc_compge30mm.R",
+    "project_path" : "a163roc_compge30mm.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
